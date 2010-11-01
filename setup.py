@@ -1,12 +1,12 @@
 from setuptools import setup
-
+# setup.py fails with buildout, fixing 
 __author__ = "Armand Lynch <lyncha@users.sourceforge.net>"
 __contributors__ = "Pau Aliagas <pau@newtral.org>"
 __copyright__ = "Copyright 2006-2010, Armand Lynch"
 __license__ = "LGPL"
 __url__ = "http://celljam.net/"
-__version__ = "7.1.1"
-doc = "HOLDER"
+__version__ = "7.1.2"
+doc = "TEMP"
 
 
 # By Armand Sat Apr 18 18:35:45 EDT 2009
