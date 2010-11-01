@@ -1,0 +1,889 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pywurfl.ql</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a class="navbar" target="_top" href="http://celljam.net/">pywurfl</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="pywurfl-module.html">Package&nbsp;pywurfl</a> ::
+        Module&nbsp;ql
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="pywurfl.ql-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module ql</h1><p class="nomargin-top"><span class="codelink"><a href="pywurfl.ql-pysrc.html">source&nbsp;code</a></span></p>
+<p>pywurfl Query Language</p>
+  <p>pywurfl QL is a WURFL query language that looks very similar to 
+  SQL.</p>
+  <h1 class="heading">Language Definition</h1>
+  <h1 class="heading">Select statement</h1>
+    <h2 class="heading">select (device|id|ua)</h2>
+      <p>The select statement consists of the keyword 'select' followed by 
+      the select type which can be one of these keywords: 'device', 'ua', 
+      'id'. The select statement is the first statement in all queries.</p>
+    <h2 class="heading">device</h2>
+      <p>When 'select' is followed by the keyword 'device', a device object
+      will be returned for each device that matches the 'where' expression 
+      (see below).</p>
+    <h2 class="heading">ua</h2>
+      <p>When 'select' is followed by the keyword 'ua', an user-agent 
+      string will be returned for each device that matches the 'where' 
+      expression (see below).</p>
+    <h2 class="heading">id</h2>
+      <p>When 'select' is followed by the keyword 'id', a WURFL id string 
+      will be returned for each device that matches the 'where' expression 
+      (see below).</p>
+  <h1 class="heading">Where statement</h1>
+    <h2 class="heading">where condition</h2>
+    <h2 class="heading">where condition and/or condition</h2>
+    <h2 class="heading">where any/all and/or condition</h2>
+      <p>The where statement follows a select statement and can consist of 
+      the following elements: 'where condition', 'any statement', 'all 
+      statement'.</p>
+    <h2 class="heading">Where condition</h2>
+      <p>A where condition consists of a capability name followed by a test
+      operator followed by a value. For example, &quot;ringtone = 
+      true&quot;.</p>
+    <h2 class="heading">Any statement</h2>
+      <p>An any statement consists of the keyword 'any' followed by a 
+      parenthesized, comma delimited list of capability names, followed by 
+      a test operator and then followed by a value. All capabilities listed
+      in an any statement will be 'ored' together. There must be a minimum 
+      of two capabilities listed.</p>
+      <p>For example: &quot;any(ringtone_mp3, ringtone_wav) = 
+      true&quot;.</p>
+    <h2 class="heading">All statement</h2>
+      <p>An all statement consists of the keyword 'all' followed by a 
+      parenthesized, comma delimited list of capability names, followed by 
+      a test operator and then followed by a value. All capabilities listed
+      in an all statement will be 'anded' together. There must be a minimum
+      of two capabilities listed.</p>
+      <p>For example: &quot;all(ringtone_mp3, ringtone_wav) = 
+      true&quot;.</p>
+    <h2 class="heading">Test operators</h2>
+      <p>The following are the test operators that the query language can 
+      recognize:</p>
+<pre class="literalblock">
+   = != &lt; &gt; &gt;= &lt;=
+</pre>
+      <p>Comparing strings follow Python's rules.</p>
+    <h2 class="heading">Values</h2>
+      <p>Test values can be integers, strings in quotes and the tokens 
+      &quot;true&quot; or &quot;false&quot; for boolean tests.</p>
+  <h1 class="heading">Binary operators</h1>
+    <p>There are two binary operators defined in the language 
+    &quot;and&quot; and &quot;or&quot;. They can be used between any where 
+    statement tests and follow conventional precedence rules:</p>
+<pre class="literalblock">
+ ringtone=true or ringtone_mp3=false and preferred_markup=&quot;wml_1_1&quot;
+                           -- becomes --
+ (ringtone=true or (ringtone_mp3=false and preferred_markup=&quot;wml_1_1&quot;))
+</pre>
+  <h1 class="heading">Example Queries</h1>
+    <p>select id where ringtone=true</p>
+    <p>select id where ringtone=false and ringtone_mp3=true</p>
+    <p>select id where rows &gt; 3</p>
+    <p>select id where all(ringtone_mp3, ringtone_aac, 
+    ringtone_qcelp)=true</p>
+    <p>select ua where preferred_markup = &quot;wml_1_1&quot;</p>
+  <h1 class="heading">EBNF</h1>
+    <p>query ::= select_statement where_statement</p>
+    <p>select_statement ::= 'select' ('device' | 'id' | 'ua')</p>
+    <p>where_statement ::= 'where' + where_expression</p>
+    <p>where_expression ::= where_test (boolop where_test)*</p>
+    <p>where_test ::= (any_statement | all_statement | expr_test)</p>
+    <p>any_statement ::= 'any' '(' expr_list ')' operator expr</p>
+    <p>all_statement ::= 'all' '(' expr_list ')' operator expr</p>
+    <p>capability ::= alphanums ('_' alphanums)*</p>
+    <p>expr_test ::= expr operator expr</p>
+    <p>expr_list ::= expr (',' expr)*</p>
+    <p>expr ::= types attributes_methods_concat | capability 
+    attributes_methods_concat</p>
+    <p>attributes_methods_concat ::= ('.' method '(' method_args? ')')*</p>
+    <p>method_args ::= (method_arg (',' method_arg)*)</p>
+    <p>method_arg ::= (types | expr)</p>
+    <p>method ::= ('_' alphanums)*</p>
+    <p>operator ::= ('='|'!='|'&lt;'|'&gt;'|'&gt;='|'&lt;=')</p>
+    <p>types ::= (&lt;quote&gt; string &lt;quote&gt; | integer | 
+    boolean)</p>
+    <p>boolean ::= ('true' | 'false')</p>
+    <p>boolop ::= ('and' | 'or')</p>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        Armand Lynch &lt;lyncha@users.sourceforge.net&gt;
+      </p>
+      <p><strong>Copyright:</strong>
+        Copyright 2006-2010, Armand Lynch
+      </p>
+      <p><strong>License:</strong>
+        LGPL
+      </p>
+</div><!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Classes</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Classes"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pywurfl.ql.QueryLanguageError-class.html" class="summary-name">QueryLanguageError</a><br />
+      Base exception class for pywurfl.ql
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pywurfl.ql._Type-class.html" class="summary-name" onclick="show_private();">_Type</a>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pywurfl.ql.TypeNone-class.html" class="summary-name" onclick="show_private();">TypeNone</a>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pywurfl.ql.TypeNum-class.html" class="summary-name" onclick="show_private();">TypeNum</a>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pywurfl.ql.TypeStr-class.html" class="summary-name" onclick="show_private();">TypeStr</a>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pywurfl.ql.TypeBool-class.html" class="summary-name" onclick="show_private();">TypeBool</a>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pywurfl.ql.TypeList-class.html" class="summary-name" onclick="show_private();">TypeList</a>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_toNum"></a><span class="summary-sig-name">_toNum</span>(<span class="summary-sig-arg">s</span>,
+        <span class="summary-sig-arg">l</span>,
+        <span class="summary-sig-arg">toks</span>)</span><br />
+      Convert to pywurfl number type</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pywurfl.ql-pysrc.html#_toNum">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_toBool"></a><span class="summary-sig-name">_toBool</span>(<span class="summary-sig-arg">s</span>,
+        <span class="summary-sig-arg">l</span>,
+        <span class="summary-sig-arg">toks</span>)</span><br />
+      Convert to pywurfl boolean type</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pywurfl.ql-pysrc.html#_toBool">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_toStr"></a><span class="summary-sig-name">_toStr</span>(<span class="summary-sig-arg">s</span>,
+        <span class="summary-sig-arg">l</span>,
+        <span class="summary-sig-arg">toks</span>)</span><br />
+      Convert to pywurfl string type</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pywurfl.ql-pysrc.html#_toStr">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">pyparsing.ParserElement</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pywurfl.ql-module.html#define_language" class="summary-sig-name" onclick="show_private();">define_language</a>()</span><br />
+      Defines the pywurfl query language.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pywurfl.ql-pysrc.html#define_language">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">dict</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="get_operators"></a><span class="summary-sig-name">get_operators</span>()</span><br />
+      Returns a dictionary of operator mappings for the query language.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pywurfl.ql-pysrc.html#get_operators">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">function</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pywurfl.ql-module.html#expr_test" class="summary-sig-name" onclick="show_private();">expr_test</a>(<span class="summary-sig-arg">lexpr</span>,
+        <span class="summary-sig-arg">op</span>,
+        <span class="summary-sig-arg">rexpr</span>)</span><br />
+      Returns an exp test function.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pywurfl.ql-pysrc.html#expr_test">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_evaluate"></a><span class="summary-sig-name">_evaluate</span>(<span class="summary-sig-arg">devobj</span>,
+        <span class="summary-sig-arg">expression</span>)</span><br />
+      Evaluate an expression with respect to a device object</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pywurfl.ql-pysrc.html#_evaluate">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">function</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pywurfl.ql-module.html#combine_funcs" class="summary-sig-name" onclick="show_private();">combine_funcs</a>(<span class="summary-sig-arg">funcs</span>)</span><br />
+      Combines a list of functions with binary operators.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pywurfl.ql-pysrc.html#combine_funcs">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">function</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pywurfl.ql-module.html#reduce_funcs" class="summary-sig-name" onclick="show_private();">reduce_funcs</a>(<span class="summary-sig-arg">func</span>,
+        <span class="summary-sig-arg">seq</span>)</span><br />
+      Reduces a sequence of function objects to one function object by 
+      applying a binary function recursively to the sequence:</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pywurfl.ql-pysrc.html#reduce_funcs">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">function</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pywurfl.ql-module.html#reduce_statement" class="summary-sig-name" onclick="show_private();">reduce_statement</a>(<span class="summary-sig-arg">exp</span>)</span><br />
+      Produces a function that represents the &quot;any&quot; or 
+      &quot;all&quot; expression passed in by exp:</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pywurfl.ql-pysrc.html#reduce_statement">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">function</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pywurfl.ql-module.html#test_generator" class="summary-sig-name" onclick="show_private();">test_generator</a>(<span class="summary-sig-arg">ql_result</span>)</span><br />
+      Produces a function that encapsulates all the tests from a where 
+      statement and takes a Device class or object as a parameter:</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pywurfl.ql-pysrc.html#test_generator">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">function</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pywurfl.ql-module.html#QL" class="summary-sig-name">QL</a>(<span class="summary-sig-arg">devices</span>)</span><br />
+      Return a function that can run queries against the WURFL.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pywurfl.ql-pysrc.html#QL">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pywurfl.ql-module.html#__doc__" class="summary-name" onclick="show_private();">__doc__</a> = <code title="&quot;&quot;&quot;
+pywurfl Query Language
+
+pywurfl QL is a WURFL query language that looks very similar to SQL.
+
+Language Definition
+===================
+
+..."><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pywurfl.ql-module.html#__contributors__" class="summary-name" onclick="show_private();">__contributors__</a> = <code title="'Gabriele Fantini &lt;gabriele.fantini@staff.dada.net&gt;'"><code class="variable-quote">'</code><code class="variable-string">Gabriele Fantini &lt;gabriele.fantini@staff.d</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__url__"></a><span class="summary-name">__url__</span> = <code title="'http://celljam.net/'"><code class="variable-quote">'</code><code class="variable-string">http://celljam.net/</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pywurfl.ql-module.html#ops" class="summary-name" onclick="show_private();">ops</a> = <code title="{'!=': &lt;built-in function ne&gt;,
+ '&lt;': &lt;built-in function lt&gt;,
+ '&lt;=': &lt;built-in function le&gt;,
+ '=': &lt;built-in function eq&gt;,
+ '&gt;': &lt;built-in function gt&gt;,
+ '&gt;=': &lt;built-in function ge&gt;,
+ 'and': &lt;function and_ at 0x84fe72c&gt;,
+ 'or': &lt;function or_ at 0x853780c&gt;}"><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">!=</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;built-in function ne&gt;<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">&lt;</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;built-in function l<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="define_language"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">define_language</span>()</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pywurfl.ql-pysrc.html#define_language">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Defines the pywurfl query language.</p>
+  <dl class="fields">
+    <dt>Returns: pyparsing.ParserElement</dt>
+        <dd>The definition of the pywurfl query language.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="expr_test"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">expr_test</span>(<span class="sig-arg">lexpr</span>,
+        <span class="sig-arg">op</span>,
+        <span class="sig-arg">rexpr</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pywurfl.ql-pysrc.html#expr_test">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns an exp test function.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>lexpr</code></strong> (expr) - An expr</li>
+        <li><strong class="pname"><code>op</code></strong> (string) - A binary test operator</li>
+        <li><strong class="pname"><code>rexpr</code></strong> (expr) - An expr</li>
+    </ul></dd>
+    <dt>Returns: function</dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="combine_funcs"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">combine_funcs</span>(<span class="sig-arg">funcs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pywurfl.ql-pysrc.html#combine_funcs">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Combines a list of functions with binary operators.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>funcs</code></strong> (list) - A python list of function objects with descriptions of binary 
+          operators interspersed.
+          <p>For example [func1, 'and', func2, 'or', func3]</p></li>
+    </ul></dd>
+    <dt>Returns: function</dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="reduce_funcs"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">reduce_funcs</span>(<span class="sig-arg">func</span>,
+        <span class="sig-arg">seq</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pywurfl.ql-pysrc.html#reduce_funcs">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Reduces a sequence of function objects to one function object by 
+  applying a binary function recursively to the sequence:</p>
+<pre class="literalblock">
+   In:
+       func = and
+       seq = [func1, func2, func3, func4]
+   Out:
+       and(func1, and(func2, and(func3, func4)))
+</pre>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>func</code></strong> (function) - A function that acts as a binary operator.</li>
+        <li><strong class="pname"><code>seq</code></strong> (list) - An ordered sequence of function objects</li>
+    </ul></dd>
+    <dt>Returns: function</dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="reduce_statement"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">reduce_statement</span>(<span class="sig-arg">exp</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pywurfl.ql-pysrc.html#reduce_statement">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Produces a function that represents the &quot;any&quot; or 
+  &quot;all&quot; expression passed in by exp:</p>
+<pre class="literalblock">
+   In:
+       any(ringtone_mp3, ringtone_awb) = true
+   Out:
+       ((ringtone_mp3 = true) or (ringtone_awb = true))
+</pre>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>exp</code></strong> (pyparsing.ParseResults) - The result from parsing an 'any' or 'all' statement.</li>
+    </ul></dd>
+    <dt>Returns: function</dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="test_generator"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">test_generator</span>(<span class="sig-arg">ql_result</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pywurfl.ql-pysrc.html#test_generator">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Produces a function that encapsulates all the tests from a where 
+  statement and takes a Device class or object as a parameter:</p>
+<pre class="literalblock">
+   In (a result object from the following query):
+     select id where ringtone=true and any(ringtone_mp3, ringtone_awb)=true
+
+   Out:
+     def func(devobj):
+         if (devobj.ringtone == True and
+             (devobj.ringtone_mp3 == True or
+              devobj.ringtone_awb == True)):
+             return True
+         else:
+             return False
+     return func
+</pre>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>ql_result</code></strong> - The result from calling pyparsing.parseString()</li>
+    </ul></dd>
+    <dt>Returns: function</dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="QL"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">QL</span>(<span class="sig-arg">devices</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pywurfl.ql-pysrc.html#QL">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Return a function that can run queries against the WURFL.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>devices</code></strong> (pywurfl.Devices) - The device class hierarchy from pywurfl</li>
+    </ul></dd>
+    <dt>Returns: function</dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== VARIABLES DETAILS ==================== -->
+<a name="section-VariablesDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-VariablesDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__doc__"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">__doc__</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+&quot;&quot;&quot;
+pywurfl Query Language
+
+pywurfl QL is a WURFL query language that looks very similar to SQL.
+
+Language Definition
+===================
+
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__contributors__"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">__contributors__</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">'</code><code class="variable-string">Gabriele Fantini &lt;gabriele.fantini@staff.dada.net&gt;</code><code class="variable-quote">'</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="ops"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">ops</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">!=</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;built-in function ne&gt;<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">&lt;</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;built-in function lt&gt;<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">&lt;=</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;built-in function le&gt;<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">=</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;built-in function eq&gt;<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">&gt;</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;built-in function gt&gt;<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">&gt;=</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;built-in function ge&gt;<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">and</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;function and_ at 0x84fe72c&gt;<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">or</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;function or_ at 0x853780c&gt;<code class="variable-group">}</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a class="navbar" target="_top" href="http://celljam.net/">pywurfl</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Aug  3 14:04:35 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

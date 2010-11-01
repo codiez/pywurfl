@@ -1,0 +1,27 @@
+Metadata-Version: 1.0
+Name: pywurfl
+Version: 7.1.1
+Summary: 
+pywurfl - Python tools for processing and querying the Wireless Universal Resource File (WURFL)
+
+Home-page: http://celljam.net/
+Author: ['Armand Lynch']
+Author-email: ['lyncha@users.sourceforge.net']
+License: LGPL
+Description: 
+        pywurfl - Python tools for processing and querying the Wireless Universal Resource File (WURFL)
+        
+Platform: All
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Console
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Telecommunications Industry
+Classifier: License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Topic :: Database :: Front-Ends
+Classifier: Topic :: Internet :: WAP
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Utilities

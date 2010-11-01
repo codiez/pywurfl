@@ -1,0 +1,192 @@
+2010-08-03 Armand Lynch <lyncha@users.sourceforge.net>
+    * 7.1.1 release
+    * Updated the WURFL Two Step algorithm to Java API version 1.0.1.
+    * Fixed a logic bug when using the levenshtein distance algorithm.
+      Thanks to Malcolm Box for the bug reports and patches.
+    * Fixed a bug where the wrong named parameters were used within the
+      handlers for the Two Step algorithm.
+      Thanks to Malcolm Box for the bug reports and patches.
+
+2010-05-06 Armand Lynch <lyncha@users.sourceforge.net>
+    * 7.1.0 release
+    * Added the WURFL Two Step algorithm.
+    * Changed the filter_noise parameter to 'normalizer' in the select_ua API
+      call.
+    * Fixed an error where the maximum value for the Levenshtein distance was
+      chosen instead of the minimum in algorithms.py.
+
+2010-03-06 Armand Lynch <lyncha@users.sourceforge.net>
+    * 7.0.0 release (first stable release)
+    * All textual capabilities are now unicode strings.
+      Thanks to John O'Brien for the bug report.
+    * Fixed a bug in the query language where nested expressions were not
+      evaluated properly.
+
+2009-04-18 Armand Lynch <lyncha@users.sourceforge.net>
+    * 6.4.1b release
+    * Fixed a couple of serialization bugs.
+    * Fixed a bug where wurfl2python would misinterpret '\' characters from
+      the wurfl.xml file.
+      Thanks to Venkatraman Dhamodaran for the bug reports.
+
+2008-04-13 Armand Lynch <lyncha@users.sourceforge.net>
+    * 6.4.0b release
+    * Added some improvements to the query language.
+      Thanks to Gabriele Fantini.
+    * Added the md5_hexdigest property to the Devices class.
+      Thanks to Michele Bariani.
+    * Improved the tokenizer. Thanks to Michele Bariani.
+    * Moved capability type inference to wurfl.py generation time from
+      runtime.
+    * Requires pyparsing >= 1.4.10 for the query language.
+    * Renamed BaseException to WURFLException.
+    * Updated documentation.
+
+2007-08-15 Armand Lynch <lyncha@users.sourceforge.net>
+    * Fixed a documentation bug. Thanks to Hedley Roos.
+
+2007-07-31 Armand Lynch <lyncha@users.sourceforge.net>
+    * 6.3.1b release
+    * Fixed bug in actual_device_root handling.
+      Thanks to Gabriele Fantini for the bug report and fix.
+    * Updated documentation.
+
+2007-02-10 Armand Lynch <lyncha@users.sourceforge.net>
+    * 6.3.0b release
+    * Added Python eggs as a distribution method.
+    * Updated documentation.
+
+2007-02-05 Armand Lynch <lyncha@users.sourceforge.net>
+    * 6.2.0b release
+    * Added the remove_tree API method.
+    * Fixed a bug in the select_ua method.
+    * Fixed documentation and missing file issues.
+
+2007-01-01 Armand Lynch <lyncha@users.sourceforge.net>
+    * 6.1.0b release
+
+2006-09-26 Armand Lynch <lyncha@users.sourceforge.net>
+    * Added the ability to manipulate the wurfl tree from within Python
+      using device API methods.
+    * Added the serialize module.
+
+2006-09-20 Armand Lynch <lyncha@users.sourceforge.net>
+    * Add the ability to normalize capability types across all devices. This
+      is done when wurfl.py is imported.
+
+2006-09-15 Armand Lynch <lyncha@users.sourceforge.net>
+    * 6.0.0b release
+
+2006-09-07 Armand Lynch <lyncha@users.sourceforge.net>
+    * Added the ability to choose between instances and classes when
+      retrieving devices.
+    * Fixed discrepancy in license messages, everything is LGPL now.
+    * Updated example files.
+    * Updated documentation.
+
+2006-09-03 Armand Lynch <lyncha@users.sourceforge.net>
+    * Changed the package name to pywurfl.
+    * Changed getDeviceByID API method to select_id.
+    * Changed getDeviceByUA API method to select_ua.
+    * Removed back ported version of the query language.
+    * Removed the patchwurfl script.
+    * Updated documentation.
+
+2006-06-03 Armand Lynch <lyncha@users.sourceforge.net>
+    * Added an algorithms.py module and added the tokenizer back to the
+      package. Incorporating custom user agent similarity algorithms is a lot
+      easier now. Thanks to Gabriele Fantini and Michele Bariani for the
+      patches and input.
+    * Moved exceptions to their own module.
+    * Devices have gained (regained) a 'groups' attribute.
+
+2006-04-27 Armand Lynch <lyncha@users.sourceforge.net>
+    * 5.0.0a release
+    * Changed the license to LGPL
+    * Added a RPM spec file.
+    * Added a WURFL checker utility.
+    * Added a WURFL processor class.
+    * Added a query language to pyWURFL.
+    * Requires pyparsing >= 1.4.2 for the query language.
+      http://pyparsing.sourceforge.net/
+    * Requires pyparsing == 1.3 for the query language compatibility module.
+    * Changed the example files.
+    * Improved documentation.
+    * setup.py is back.
+    * Many things were re-written. This version is incompatible with previous 
+      versions.
+    * Thanks to Pau Aliagas for all the help.
+
+2006-02-24 Armand Lynch <lyncha@users.sourceforge.net>
+    * 4.0.0a release.
+    * Updated example files.
+
+2006-02-13 Armand Lynch <lyncha@users.sourceforge.net>
+    * Added the ability to determine is noise should be filtered from user
+      agents when searching with getDeviceByUA.
+      Thanks to Pau Aliagas for the patch.
+
+2006-02-10 Armand Lynch <lyncha@users.sourceforge.net>
+    * wurfl2python and patchwurfl have been re-written to use the ElementTree
+      API instead of SAX. 
+      Thanks to Pau Aliagas for the patches.
+    * wurfl2python and patchwurfl can work on compressed (gzip, bzip or zip) 
+      wurfl.xml files or patch files.
+      Thanks to Pau Aliagas for the patches.
+    * Requires cElementTree >= 1.0.5 or ElementTree >= 1.2.6
+      http://effbot.org/downloads/
+
+2006-02-01 Armand Lynch <lyncha@users.sourceforge.net>
+    * Replaced the Levenshtein alorgithm with the Jaro-Winkler algorithm for
+      determining similarity.
+      Thanks to Pau Aliagas for the patches.
+
+2006-01-30 Armand Lynch <lyncha@users.sourceforge.net>
+    * Added the ability to search for the actual device root of a device when
+      using getDeviceByID or getDeviceByUA.
+      Thanks to Pau Aliagas for the patch.
+    * Added the ActualDeviceRootNotFound exception.
+    * Added a configuration object (config) to the pyWURFL module.
+    * Added the ability to turn on device caching for lookups.
+
+2006-01-22 Armand Lynch <lyncha@users.sourceforge.net>
+    * 3.0.0a release.
+    * Added a wurfl.py patch module (patchwurfl.py).
+    * Using Levenshtein distances for searches now.
+    * Requires Levenshtein module >= 0.10.0
+      http://trific.ath.cx/resources/python/levenshtein/
+    * Deprecated the use of devwindow when searching for devices by user
+      agent.
+
+2005-05-02 Armand Lynch <lyncha@users.sourceforge.net>
+    * 2.0.0a release.
+    * Entire package was re-written and the API has changed. This version is
+      not compatible with previous versions.
+    * Referencing device capabilities takes less typing.
+    * Performance has been increased at the cost of memory usage.
+    * pyWURFL should work now no matter what order the WURFL is in.
+      Thanks to Michele Bariani for the bug report.
+    * Requires >= Python 2.3
+
+2004-06-09 Armand Lynch <lyncha@users.sourceforge.net>
+    * Added an ID dictionary to facilitate seaches by WURFL ID.
+    * Changed the getDevice function to getDeviceByUA.
+    * Added the WURFLDeviceNotFound exception.
+    * getDeviceByUA got an additional parameter "search" that when set to 
+      False will raise the new WURFLDeviceNotFoundError when an exact user
+      agent match cannot be found.
+    * Added a getDeviceByID function.
+    * Added a simple WURFL browser to the examples directory.
+    * Bug fixes.
+
+2004-06-05 Armand Lynch <lyncha@users.sourceforge.net>
+    * Changed the default string representation of the WURFLDevice class.
+
+2004-05-25 Armand Lynch <lyncha@users.sourceforge.net>
+    * Changed my email address referenced throughout the package.
+
+2004-04-01 Armand Lynch <lyncha@sourceforge.net>
+    * Made the package more friendly towards Python 2.2.
+
+2004-02-29 Armand Lynch <lyncha@sourceforge.net>
+    * Initial 1.0.0a release.
