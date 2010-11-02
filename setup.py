@@ -5,7 +5,7 @@ __contributors__ = "Pau Aliagas <pau@newtral.org>"
 __copyright__ = "Copyright 2006-2010, Armand Lynch"
 __license__ = "LGPL"
 __url__ = "http://celljam.net/"
-__version__ = "7.1.2"
+__version__ = "7.1.1.2"
 doc = "TEMP"
 
 
